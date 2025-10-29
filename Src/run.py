@@ -6,8 +6,18 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-def linear_regression(x, w, b):
-    return x * w + b
+class LinearRegression:
+    def __init__(self, x, w = torch.randn(1), b= torch.randn(1)):
+        self.x = x
+        self.w = w
+        self.b = b
+
+    def __call__(self, x):
+        return self.w * x + self.b
+
+    def __repr__(self):
+        return f"y = {self.w}x + {self.b}"
+
 
 salery = pd.read_csv("./Data/Salary Data.csv")
 
@@ -35,7 +45,8 @@ b = torch.randn(1)
 
 
 xr = torch.linspace(x_train.min(), x_train.max(), 100).unsqueeze(1)
-y_hat = linear_regression(xr, w, b)
+model = LinearRegression(x_train)
+y_hat = model(xr)
 plt.scatter(x_train, y_train)
 plt.plot(xr, y_hat, color='red')
 plt.show()
