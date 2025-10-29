@@ -50,4 +50,8 @@ b = torch.randn(1)
 for i in range(100):
     y_hat = linear_regression(x_train, w, b)
     loss = mse(y_hat, y_train)
-    w, b = gradient_descent(x_train, y_train, y_hat, w, b, lr=0.01)
+    w, b = gradient_descent(x_train, y_train, y_hat, w, b, lr=0.1)
+
+y_pred = linear_regression(x_test, w, b)
+test_loss = mse(y_pred, y_test)
+print(f"Test MSE Loss: {test_loss.item()}")
