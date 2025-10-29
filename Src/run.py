@@ -9,6 +9,20 @@ from sklearn.preprocessing import StandardScaler
 def linear_regression(x, w, b):
     return x * w + b
 
+# Loss Function
+def mse(y_hat, y):
+    return torch.mean((y_hat - y) ** 2)
+
+def gradient_descent(x, y, y_hat, w, b, lr=0.01):
+    N = len(y)
+    dw = (-2/N) * torch.sum(x * (y - y_hat))
+    db = (-2/N) * torch.sum(y - y_hat)
+
+    w -= lr * dw
+    b -= lr * db
+
+    return w, b
+
 salery = pd.read_csv("./Data/Salary Data.csv")
 
 X = salery['Experience Years'].values
@@ -28,14 +42,12 @@ x_train = torch.tensor(x_train, dtype=torch.float32)
 y_train = torch.tensor(y_train, dtype=torch.float32)
 x_test = torch.tensor(x_test, dtype=torch.float32)
 y_test = torch.tensor(y_test, dtype=torch.float32)
-torch.random
+
+
 w = torch.randn(1)
 b = torch.randn(1)
 
-
-
-xr = torch.linspace(x_train.min(), x_train.max(), 100).unsqueeze(1)
-y_hat = linear_regression(xr, w, b)
-plt.scatter(x_train, y_train)
-plt.plot(xr, y_hat, color='red')
-plt.show()
+for i in range(100):
+    y_hat = linear_regression(x_train, w, b)
+    loss = mse(y_hat, y_train)
+    w, b = gradient_descent(x_train, y_train, y_hat, w, b, lr=0.01)
