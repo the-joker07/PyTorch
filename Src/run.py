@@ -38,11 +38,6 @@ x_train = torch.tensor(x_train, dtype=torch.float32)
 y_train = torch.tensor(y_train, dtype=torch.float32)
 x_test = torch.tensor(x_test, dtype=torch.float32)
 y_test = torch.tensor(y_test, dtype=torch.float32)
-torch.random
-w = torch.randn(1)
-b = torch.randn(1)
-
-
 
 xr = torch.linspace(x_train.min(), x_train.max(), 100).unsqueeze(1)
 model = LinearRegression(x_train)
