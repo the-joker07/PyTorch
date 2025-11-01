@@ -1,0 +1,13 @@
+from torch.utils.data import TensorDataset, DataLoader
+import torch
+
+x = torch.arange (10,20)
+y = torch.arange (20,30)
+
+dataset = TensorDataset(x,y)
+
+dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
+
+for batch in dataloader:
+    inputs, targets = batch
+    print(f"Inputs: {inputs}, Targets: {targets}")
